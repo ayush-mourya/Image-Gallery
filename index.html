@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <link rel="stylesheet" href="original.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <!-- Profile Section -->
+    <div class="profile">
+      <img src="ayush.jpg" alt="Ayush" class="profile-img">
+      <h1>ArrestVision</h1>
+      <p class="username">Ayush</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/seri_ayush_/" target="_blank" class="social-link">
+          <img src="instagram (1).png" alt="Instagram" class="social-icon"> 
+        </a>
+        <a href="https://photos.app.goo.gl/FTxMLN2mmbZrT7iH9" target="_blank" class="social-link">
+          <img src="google-photos.png" alt="Google Photos" class="social-icon">
+        </a>
+      </div>
+      <p class="bio">Everything moves on but memories stay</p>
+    </div>
+
+    <!-- Image Carousel Section -->
+    <section id="slider">
+      <input type="radio" name="slider" id="s1" checked>
+      <input type="radio" name="slider" id="s2">
+      <input type="radio" name="slider" id="s3">
+      <input type="radio" name="slider" id="s4">
+      <input type="radio" name="slider" id="s5">
+
+      <label for="s1" id="slide1"><img src="images/sunset (2).jpg" alt=""></label>
+      <label for="s5" id="slide5"><img src="images/sunset (4).jpg" alt=""></label>
+      <label for="s2" id="slide2"><img src="images/image carousel/fest.jpg" alt=""></label>
+      <label for="s4" id="slide4"><img src="images/sunset.jpg" alt=""></label>
+      <label for="s3" id="slide3"><img src="images/image carousel/dtu.jpg" alt=""></label>
+    </section>
+
+    <!-- Gallery Section -->
+    <div class="full-img" id="fullImgBox">
+        <img src="" id="fullImg">
+        <span class="close" onclick="closeFullImg()">X</span>
+        <span class="arrow left" id="leftArrow" onclick="changeImage(-1)"><i class="fas fa-chevron-left"></i></span>
+        <span class="arrow right" id="rightArrow" onclick="changeImage(1)"><i class="fas fa-chevron-right"></i></span>
+    </div>
+
+    <div class="img-gallery" id="imgGallery">
+      <img src="images/district centre/dc.jpg" onclick="openFullImg(this)">
+      <img src="images/district centre/dc (2).jpg" onclick="openFullImg(this)">
+      <img src="images/district centre/dc(2).jpg" onclick="openFullImg(this)">
+      <img src="images/district centre/dc (3).jpg" onclick="openFullImg(this)">
+      <img src="images/district centre/dc (4).jpg" onclick="openFullImg(this)">
+      <img src="images/district centre/dc (5).jpg" onclick="openFullImg(this)">
+      <img src="images/district centre/dc (6).jpg" onclick="openFullImg(this)">
+      <img src="images/district centre/dc (7).jpg" onclick="openFullImg(this)">
+      <img src="images/aben room/aben_room.jpg" onclick="openFullImg(this)">
+      <img src="images/aben room/aben_room (2).jpg" onclick="openFullImg(this)">
+      <img src="images/aben room/aben_room (3).jpg" onclick="openFullImg(this)">
+      <img src="images/aben room/aben_room (4).jpg" onclick="openFullImg(this)">
+      <img src="images/aben room/aben_room (5).jpg" onclick="openFullImg(this)">
+      <img src="images/india gate/india gate.jpg" onclick="openFullImg(this)">
+      <img src="images/india gate/india  gate.jpg" onclick="openFullImg(this)">
+      <img src="images/india gate/india gate (2).jpg" onclick="openFullImg(this)">
+      <img src="images/india gate/india gate (3).jpg" onclick="openFullImg(this)">
+      <img src="images/india gate/india gate (4).jpg" onclick="openFullImg(this)">
+      <img src="images/india gate/india gate (5).jpg" onclick="openFullImg(this)">
+      <img src="images/india gate/india gate (6).jpg" onclick="openFullImg(this)">
+      <img src="images/park.jpg" onclick="openFullImg(this)">
+      <img src="images/park (2).jpg" onclick="openFullImg(this)">
+      <img src="images/sunset.jpg" class="landscape" onclick="openFullImg(this)">
+      <img src="images/sunset (3).jpg" class="landscape" onclick="openFullImg(this)">
+      <img src="images/iiitd.jpg" onclick="openFullImg(this)">
+      <img src="images/sunset (3).jpg" class="landscape" onclick="openFullImg(this)">
+      <img src="images/sunset (4).jpg" class="landscape" onclick="openFullImg(this)">
+      <img src="images/sunset (2).jpg" class="landscape" onclick="openFullImg(this)">
+    </div>
+
+    <script>
+        var fullImgBox = document.getElementById("fullImgBox");
+        var fullImg = document.getElementById("fullImg");
+        var leftArrow = document.getElementById("leftArrow");
+        var rightArrow = document.getElementById("rightArrow");
+        var imgGallery = document.getElementById("imgGallery");
+        var currentIndex = 0;
+        var images = imgGallery.getElementsByTagName('img');
+  
+        function openFullImg(img) {
+            fullImgBox.style.display = "flex";
+            fullImg.src = img.src;
+            document.body.style.overflow = "hidden";
+            currentIndex = Array.from(imgGallery.querySelectorAll('.img-container img')).indexOf(img);
+            updateArrows();
+        }
+
+// Update other relevant parts of your JavaScript to use .img-container img instead of just img
+  
+        function closeFullImg() {
+            fullImgBox.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+  
+        function changeImage(direction) {
+            currentIndex += direction;
+            if (currentIndex >= 0 && currentIndex < images.length) {
+                fullImg.src = images[currentIndex].src;
+                updateArrows();
+            } else {
+                currentIndex -= direction; // Revert the change if out of bounds
+            }
+        }
+  
+        function updateArrows() {
+            leftArrow.style.display = currentIndex === 0 ? "none" : "flex";
+            rightArrow.style.display = currentIndex === images.length - 1 ? "none" : "flex";
+        }
+  
+        // Close full image when clicking outside the image
+        fullImgBox.addEventListener('click', function(e) {
+            if (e.target !== fullImg && !e.target.closest('.arrow')) {
+                closeFullImg();
+            }
+        });
+  
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (fullImgBox.style.display === "flex") {
+                if (e.key === "ArrowLeft") changeImage(-1);
+                if (e.key === "ArrowRight") changeImage(1);
+                if (e.key === "Escape") closeFullImg();
+            }
+        });
+  
+        function detectImageOrientation() {
+          var images = document.querySelectorAll('.img-gallery img');
+          images.forEach(function(img) {
+            img.onload = function() {
+              if (this.naturalWidth > this.naturalHeight) {
+                this.classList.add('landscape');
+              }
+            }
+          });
+        }
+  
+        // Call this function after the page has loaded
+        window.addEventListener('load', detectImageOrientation);
+      </script>
+    </body>
+  </html>
